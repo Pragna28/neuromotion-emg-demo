@@ -153,6 +153,8 @@ background-color:var(--base)!important;border:0!important;border-radius:14px!imp
 box-shadow:5px 5px 10px var(--lo),-5px -5px 10px var(--hi)!important}
 .stApp [data-testid="stFileUploader"] :is(small,span,p,svg){color:var(--muted)!important;fill:var(--muted)!important}
 .stApp [data-testid="stFileUploader"] button *{color:var(--ink)!important;fill:var(--ink)!important}
+.stApp [data-baseweb="tab-highlight"]{background:var(--indigo)!important;height:3px;border-radius:3px}
+.stApp [data-baseweb="tab-border"]{background:var(--lo)!important;height:2px;opacity:.6}
 .stApp [data-testid="stSidebar"]{display:none}
 @media (max-width:760px){.hero{flex-direction:column;align-items:flex-start}.orb{display:none}.pred{flex-wrap:wrap}}
 </style>
@@ -207,6 +209,8 @@ def clear_plot(fig, height):
     fig.update_layout(height=height, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
                       font=dict(color="#1d2640", family="Sora"), margin=dict(l=10, r=10, t=20, b=10),
                       modebar=dict(bgcolor="rgba(0,0,0,0)", color="#65729a", activecolor="#5b6cff"))
+    fig.update_xaxes(automargin=True)
+    fig.update_yaxes(automargin=True)
     return fig
 
 
@@ -217,10 +221,11 @@ def odds_chart(probs):
     fig = px.bar(d, x="Probability", y="Gesture", orientation="h", color="Gesture",
                  color_discrete_map=COLORS, text=d["Probability"].map(lambda v: f"{v:.1%}"))
     clear_plot(fig, 300)
-    fig.update_layout(showlegend=False, xaxis=dict(range=[0, 1.2], tickformat=".0%", gridcolor="#cdd6e8"),
-                      yaxis=dict(title="", gridcolor="rgba(0,0,0,0)"))
-    fig.update_traces(textposition="outside", marker_cornerradius=8)
-    st.plotly_chart(fig, use_container_width=True, theme=None)
+    fig.update_layout(showlegend=False, height=290, margin=dict(l=10, r=40, t=10, b=10), bargap=0.35,
+                      xaxis=dict(range=[0, 1.25], visible=False),
+                      yaxis=dict(title="", showgrid=False, ticksuffix="  ", tickfont=dict(size=13)))
+    fig.update_traces(textposition="outside", cliponaxis=False, marker_cornerradius=8)
+    st.plotly_chart(fig, use_container_width=True, theme=None, config={"displayModeBar": False})
     st.caption("These are the classifier's probability estimates, not guaranteed certainty.")
 
 
