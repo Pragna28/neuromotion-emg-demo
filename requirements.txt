@@ -4,3 +4,9 @@ joblib==1.6.0
 pandas==2.2.3
 numpy>=1.26,<3
 plotly>=5.24,<7
+streamlit
+scikit-learn==1.x.x
+joblib==1.x.x
+  numpy
+  pandas
+  plotly
