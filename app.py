@@ -133,6 +133,27 @@ box-shadow:6px 6px 12px var(--lo),-6px -6px 12px var(--hi)}
 [data-testid="stAlert"]:has([data-testid="stAlertContentInfo"]){border-left:6px solid var(--indigo)}
 [data-testid="stDataFrame"]{border-radius:18px;overflow:hidden;box-shadow:6px 6px 12px var(--lo),-6px -6px 12px var(--hi)}
 hr{border-color:transparent!important;height:2px;background:linear-gradient(90deg,transparent,var(--lo),transparent)!important}
+/* readable text on any Streamlit theme (light or dark) */
+html,.stApp{color-scheme:light}
+.stApp h1,.stApp h2,.stApp h3,.stApp h4{color:var(--ink)!important}
+.stApp [data-testid="stMarkdownContainer"] :is(p,li,span,small,b,div,h1,h2,h3,h4){color:var(--ink)!important}
+.stApp [data-testid="stWidgetLabel"] *,.stApp [data-baseweb="tab"] *,.stApp [data-testid="stMetric"] *,
+.stApp [data-testid="stFileUploaderDropzone"] *{color:var(--ink)!important}
+.stApp [data-testid="stCaptionContainer"],.stApp [data-testid="stCaptionContainer"] *{color:var(--muted)!important}
+.stApp [data-testid="stFileUploaderDropzone"] button{color:var(--ink)!important;background:var(--base)!important}
+.stApp [data-testid="stMarkdownContainer"] :is(.muted,.hero p,.feat p,.metric small,.pred-txt small,.ring-in span){color:var(--muted)!important}
+.stApp [data-testid="stMarkdownContainer"] :is(.feat h3,.notice b){color:var(--indigo)!important}
+.stApp [data-testid="stMarkdownContainer"] .badge.ok{color:#0b7a62!important}
+.stApp [data-testid="stMarkdownContainer"] .badge.no{color:#a85f00!important}
+.stApp [data-testid="stAlert"]{background:var(--base)!important}
+.stApp [data-testid="stAlert"] *{background:transparent!important;color:var(--ink)!important}
+.stApp [data-testid="stFileUploader"] section,.stApp [data-testid="stFileUploaderDropzone"]{background:var(--base)!important}
+.stApp [data-testid="stFileUploader"] :is(button,[data-testid^="stBaseButton"]){background:var(--base)!important;
+background-color:var(--base)!important;border:0!important;border-radius:14px!important;color:var(--ink)!important;
+box-shadow:5px 5px 10px var(--lo),-5px -5px 10px var(--hi)!important}
+.stApp [data-testid="stFileUploader"] :is(small,span,p,svg){color:var(--muted)!important;fill:var(--muted)!important}
+.stApp [data-testid="stFileUploader"] button *{color:var(--ink)!important;fill:var(--ink)!important}
+.stApp [data-testid="stSidebar"]{display:none}
 @media (max-width:760px){.hero{flex-direction:column;align-items:flex-start}.orb{display:none}.pred{flex-wrap:wrap}}
 </style>
 """, unsafe_allow_html=True)
@@ -184,7 +205,8 @@ def pred_card(pred, probs, extra=""):
 
 def clear_plot(fig, height):
     fig.update_layout(height=height, paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-                      font=dict(color="#1d2640", family="Sora"), margin=dict(l=10, r=10, t=20, b=10))
+                      font=dict(color="#1d2640", family="Sora"), margin=dict(l=10, r=10, t=20, b=10),
+                      modebar=dict(bgcolor="rgba(0,0,0,0)", color="#65729a", activecolor="#5b6cff"))
     return fig
 
 
@@ -195,10 +217,10 @@ def odds_chart(probs):
     fig = px.bar(d, x="Probability", y="Gesture", orientation="h", color="Gesture",
                  color_discrete_map=COLORS, text=d["Probability"].map(lambda v: f"{v:.1%}"))
     clear_plot(fig, 300)
-    fig.update_layout(showlegend=False, xaxis=dict(range=[0, 1.1], tickformat=".0%", gridcolor="#cdd6e8"),
+    fig.update_layout(showlegend=False, xaxis=dict(range=[0, 1.2], tickformat=".0%", gridcolor="#cdd6e8"),
                       yaxis=dict(title="", gridcolor="rgba(0,0,0,0)"))
     fig.update_traces(textposition="outside", marker_cornerradius=8)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, theme=None)
     st.caption("These are the classifier's probability estimates, not guaranteed certainty.")
 
 
@@ -209,7 +231,7 @@ def profile_chart(row):
                   color_discrete_sequence=["#5b6cff", "#22c9a0", "#f5a524", "#f0587a"])
     clear_plot(fig, 330)
     fig.update_layout(xaxis=dict(gridcolor="#cdd6e8"), yaxis=dict(gridcolor="#cdd6e8"))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, theme=None)
     st.caption("Extracted feature values, not raw EMG voltage waveforms.")
 
 
@@ -461,7 +483,7 @@ elif page == "Upload & predict":
                     fig.update_layout(showlegend=False, xaxis=dict(gridcolor="rgba(0,0,0,0)"),
                                       yaxis=dict(gridcolor="#cdd6e8"))
                     fig.update_traces(marker_cornerradius=8)
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, use_container_width=True, theme=None)
                     if "actual_gesture" in result.columns:
                         score = accuracy_score(result["actual_gesture"].astype(int),
                                                result["predicted_gesture"].astype(int))
