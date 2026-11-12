@@ -17,219 +17,69 @@ GESTURES = {
     4: "Wrist extension", 5: "Radial deviation", 6: "Ulnar deviation"
 }
 COLORS = {
-    "Hand at rest": "#8295a8",
-    "Hand clenched in a fist": "#9387c8",
-    "Wrist flexion": "#55a9a1",
-    "Wrist extension": "#729dc9",
-    "Radial deviation": "#d7a65e",
-    "Ulnar deviation": "#d88980"
+    "Hand at rest": "#94a3b8", "Hand clenched in a fist": "#a78bfa",
+    "Wrist flexion": "#22d3ee", "Wrist extension": "#38bdf8",
+    "Radial deviation": "#fbbf24", "Ulnar deviation": "#fb7185"
 }
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
-
-:root {
-  --nm-bg: #e9edf2;
-  --nm-surface: #e9edf2;
-  --nm-ink: #263449;
-  --nm-muted: #718096;
-  --nm-teal: #368f88;
-  --nm-teal-dark: #28766f;
-  --nm-lavender: #8b83bd;
-  --nm-coral: #d98e83;
-  --nm-shadow-dark: #c7cdd5;
-  --nm-shadow-light: #ffffff;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{
+ --bg:#f0eef8;--panel:#ffffff;--panel2:#f7f6fc;--ink:#171b3b;--muted:#777b99;
+ --purple:#7658ed;--violet:#b58af6;--cyan:#32c9df;--pink:#ed83c8;
+ --navy:#071538;--line:#e9e7f2;--shadow:0 14px 38px rgba(49,43,103,.09);
 }
-
-html, body, [class*="css"] {
-  font-family: 'DM Sans', 'Manrope', sans-serif;
-  color: var(--nm-ink);
-}
-.stApp {
-  background: var(--nm-bg);
-  color: var(--nm-ink);
-}
-.block-container {
-  max-width: 1460px;
-  padding-top: 2.1rem;
-  padding-bottom: 3rem;
-}
-[data-testid="stHeader"] {
-  background: rgba(233,237,242,.86);
-}
-[data-testid="stSidebar"] {
-  background: var(--nm-bg);
-  border-right: 0;
-  box-shadow: 7px 0 18px rgba(190,198,208,.28);
-}
-[data-testid="stSidebar"] > div:first-child {
-  padding-top: 1.5rem;
-}
-[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h2 {
-  color: var(--nm-ink);
-  letter-spacing: .04em;
-}
-[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {
-  color: var(--nm-muted);
-}
-[data-testid="stRadio"] > div {
-  gap: .45rem;
-}
-[data-testid="stRadio"] label {
-  background: var(--nm-surface);
-  border-radius: 14px;
-  padding: .55rem .75rem;
-  box-shadow: 4px 4px 9px var(--nm-shadow-dark), -4px -4px 9px var(--nm-shadow-light);
-  border: 1px solid rgba(255,255,255,.45);
-}
-[data-testid="stRadio"] label:has(input:checked) {
-  box-shadow: inset 3px 3px 7px var(--nm-shadow-dark), inset -3px -3px 7px var(--nm-shadow-light);
-  color: var(--nm-teal-dark);
-  font-weight: 700;
-}
-.hero {
-  padding: 1.8rem 2rem;
-  border-radius: 28px;
-  background: linear-gradient(135deg, #edf1f5, #e4e9ef);
-  box-shadow: 10px 10px 24px var(--nm-shadow-dark), -10px -10px 24px var(--nm-shadow-light);
-  border: 1px solid rgba(255,255,255,.7);
-  margin-bottom: 1.5rem;
-}
-.eyebrow {
-  color: var(--nm-teal-dark);
-  letter-spacing: .19em;
-  font-size: .72rem;
-  font-weight: 800;
-}
-.hero h1 {
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  margin: .35rem 0;
-  color: #253449;
-  font-weight: 800;
-  letter-spacing: -.045em;
-}
-.hero p, .muted {
-  color: var(--nm-muted);
-}
-.metric {
-  background: var(--nm-surface);
-  border: 1px solid rgba(255,255,255,.72);
-  border-radius: 22px;
-  padding: 1.15rem 1.2rem;
-  min-height: 116px;
-  box-shadow: 7px 7px 16px var(--nm-shadow-dark), -7px -7px 16px var(--nm-shadow-light);
-  transition: transform .18s ease, box-shadow .18s ease;
-}
-.metric:hover {
-  transform: translateY(-2px);
-  box-shadow: 9px 9px 19px var(--nm-shadow-dark), -9px -9px 19px var(--nm-shadow-light);
-}
-.metric small {
-  color: var(--nm-muted);
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  font-size: .68rem;
-  font-weight: 800;
-}
-.metric h2 {
-  color: var(--nm-teal-dark);
-  margin: .35rem 0 .2rem;
-  font-size: 1.75rem;
-  font-weight: 800;
-}
-.pred {
-  border: 1px solid rgba(255,255,255,.75);
-  background: linear-gradient(135deg, #e3f2ef, #e9edf2);
-  border-radius: 24px;
-  padding: 1.35rem 1.5rem;
-  box-shadow: inset 4px 4px 9px #cbd8d5, inset -4px -4px 9px #ffffff;
-}
-.pred small {
-  color: var(--nm-teal-dark);
-  letter-spacing: .13em;
-  text-transform: uppercase;
-  font-size: .7rem;
-  font-weight: 800;
-}
-.pred h2 {
-  color: #286d67;
-  margin: .35rem 0 0;
-  font-size: 1.55rem;
-}
-.notice {
-  border: 1px solid rgba(255,255,255,.8);
-  background: #f4eee5;
-  border-radius: 18px;
-  padding: 1rem 1.1rem;
-  color: #8a6844;
-  box-shadow: inset 3px 3px 7px #ded8d0, inset -3px -3px 7px #ffffff;
-}
-.stButton > button, .stDownloadButton > button {
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.8);
-  background: var(--nm-surface);
-  color: var(--nm-teal-dark);
-  font-weight: 800;
-  padding: .55rem 1.1rem;
-  box-shadow: 5px 5px 10px var(--nm-shadow-dark), -5px -5px 10px var(--nm-shadow-light);
-  transition: all .15s ease;
-}
-.stButton > button:hover, .stDownloadButton > button:hover {
-  color: #205e59;
-  border-color: rgba(54,143,136,.35);
-  box-shadow: inset 3px 3px 7px var(--nm-shadow-dark), inset -3px -3px 7px var(--nm-shadow-light);
-}
-.stButton > button:focus, .stDownloadButton > button:focus {
-  box-shadow: inset 3px 3px 7px var(--nm-shadow-dark), inset -3px -3px 7px var(--nm-shadow-light);
-  outline: 2px solid rgba(54,143,136,.25);
-}
-.stTextInput input, .stNumberInput input, .stSelectbox [data-baseweb="select"],
-.stFileUploader section {
-  border-radius: 14px !important;
-  background: var(--nm-surface) !important;
-  box-shadow: inset 3px 3px 7px var(--nm-shadow-dark), inset -3px -3px 7px var(--nm-shadow-light) !important;
-}
-.stFileUploader section {
-  border: 1px dashed #aeb9c6 !important;
-  padding: 1.1rem !important;
-}
-[data-testid="stDataFrame"], [data-testid="stTable"] {
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 5px 5px 12px var(--nm-shadow-dark), -5px -5px 12px var(--nm-shadow-light);
-}
-[data-testid="stMetric"] {
-  background: var(--nm-surface);
-  border-radius: 18px;
-  padding: .9rem 1rem;
-  box-shadow: 5px 5px 10px var(--nm-shadow-dark), -5px -5px 10px var(--nm-shadow-light);
-}
-[data-testid="stMetric"] label {
-  color: var(--nm-muted) !important;
-}
-[data-testid="stMetric"] [data-testid="stMetricValue"] {
-  color: var(--nm-teal-dark);
-}
-h1, h2, h3, h4 {
-  color: #2b3b50;
-  letter-spacing: -.025em;
-}
-p, li, .stMarkdown {
-  color: #4e5d70;
-}
-hr {
-  border-color: #d3d9e1;
-}
-[data-testid="stAlert"] {
-  border-radius: 15px;
-}
-footer { visibility: hidden; }
-@media (max-width: 800px) {
-  .block-container { padding: 1.1rem 1rem 2rem; }
-  .hero { padding: 1.3rem; border-radius: 22px; }
-  .hero h1 { font-size: 2rem; }
-}
+html,body,[class*="css"]{font-family:'DM Sans',sans-serif;color:var(--ink)}
+.stApp{background:radial-gradient(ellipse at 8% 8%,rgba(204,190,255,.35),transparent 32%),radial-gradient(ellipse at 92% 82%,rgba(248,196,231,.28),transparent 30%),var(--bg)}
+.block-container{max-width:1500px;padding:1.5rem 2rem 3rem}
+[data-testid="stHeader"]{background:rgba(240,238,248,.88)}
+[data-testid="stSidebar"]{background:#fbfaff;border-right:1px solid #e9e6f3;box-shadow:8px 0 30px rgba(46,42,91,.045)}
+[data-testid="stSidebar"]>div:first-child{padding:1.6rem 1.05rem}
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h2{font-family:'Space Grotesk';font-weight:700;letter-spacing:-.04em;color:#171b3b}
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"]{color:#8588a4}
+[data-testid="stRadio"]>div{gap:.48rem}
+[data-testid="stRadio"] label{border-radius:13px;padding:.58rem .72rem;background:transparent;border:1px solid transparent;transition:.2s}
+[data-testid="stRadio"] label:has(input:checked){background:linear-gradient(110deg,#eeeaff,#f8f4ff);border-color:#e2dafa;box-shadow:0 5px 14px rgba(118,88,237,.10);color:#6848df}
+[data-testid="stRadio"] label p{font-weight:650}
+[data-testid="stMetric"]{background:#fff;border:1px solid #eceaf5;border-radius:18px;padding:16px 18px;box-shadow:var(--shadow)}
+[data-testid="stMetricLabel"]{color:#8587a0;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+[data-testid="stMetricValue"]{color:#171b3b;font-family:'Space Grotesk';font-weight:700}
+[data-testid="stMetricDelta"]{font-size:.78rem}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif!important;color:#171b3b}
+h1{letter-spacing:-.045em}
+h2{letter-spacing:-.025em}
+p,li{color:#565b78}
+[data-testid="stMarkdownContainer"] strong{color:#27294d}
+.hero{position:relative;overflow:hidden;padding:1.55rem 1.7rem;border-radius:25px;background:linear-gradient(112deg,#071538 0%,#101e50 55%,#34216d 100%);border:1px solid rgba(172,158,255,.22);box-shadow:0 20px 48px rgba(24,24,73,.18);margin-bottom:1.35rem;min-height:175px}
+.hero:after{content:"";position:absolute;width:360px;height:360px;right:3%;top:-145px;border-radius:50%;background:radial-gradient(circle,rgba(76,219,255,.25),rgba(142,93,255,.14) 42%,transparent 70%);pointer-events:none}
+.hero .eyebrow{color:#70e6f5;letter-spacing:.2em;font-size:.68rem;font-weight:800}
+.hero h1{font-size:2.5rem;margin:.35rem 0 .2rem;color:#fff!important}
+.hero p{color:#c4cde8!important;max-width:680px;margin:0}
+.hero .hero-tag{display:inline-block;margin-top:1rem;padding:.38rem .7rem;border-radius:30px;background:rgba(112,230,245,.12);border:1px solid rgba(112,230,245,.28);color:#a9f2fa;font-size:.72rem;font-weight:700;letter-spacing:.06em}
+.hero .orb{position:absolute;right:9%;top:23px;width:132px;height:132px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff 0%,#b4e9ff 12%,#8b80ff 42%,#563bd0 66%,#171b5c 100%);box-shadow:inset -15px -18px 28px rgba(8,13,54,.45),0 0 50px rgba(94,125,255,.28)}
+.hero .orb:before,.hero .orb:after{content:"";position:absolute;border:1px solid rgba(160,214,255,.42);border-radius:50%;inset:-14px;transform:rotate(-25deg) scaleY(.35)}
+.hero .orb:after{inset:-26px;transform:rotate(38deg) scaleY(.28)}
+.metric{background:#fff;border:1px solid #eceaf5;border-radius:18px;padding:1rem 1.1rem;min-height:112px;box-shadow:var(--shadow)}
+.metric small{color:#8587a0;text-transform:uppercase;letter-spacing:.09em;font-size:.7rem;font-weight:800}
+.metric h2{color:#191c40;margin:.35rem 0;font-size:1.65rem;font-family:'Space Grotesk'}
+.metric .muted{color:#9698af;font-size:.78rem}
+.pred{border:1px solid #d9d1ff;background:linear-gradient(120deg,#f2efff,#fff7fd);border-radius:20px;padding:1.2rem 1.35rem;box-shadow:0 12px 28px rgba(113,86,220,.09)}
+.pred small{color:#8063df;letter-spacing:.13em;text-transform:uppercase;font-weight:800;font-size:.68rem}
+.pred h2{color:#292052;margin:.35rem 0;font-size:1.5rem}
+.notice{border:1px solid #d9d3f5;background:linear-gradient(110deg,#f2efff,#fff);border-radius:15px;padding:1rem 1.1rem;color:#625b88}
+.stButton>button,.stDownloadButton>button{border-radius:12px;border:1px solid #d9d1ff;background:linear-gradient(110deg,#7658ed,#9b78f5);color:#fff;font-weight:750;padding:.55rem 1rem;box-shadow:0 7px 18px rgba(118,88,237,.2);transition:transform .18s,box-shadow .18s}
+.stButton>button:hover,.stDownloadButton>button:hover{border-color:#7658ed;color:#fff;transform:translateY(-2px);box-shadow:0 11px 22px rgba(118,88,237,.26)}
+.stButton>button:focus,.stDownloadButton>button:focus{color:#fff}
+.stTextInput input,.stNumberInput input,.stSelectbox div[data-baseweb="select"],.stFileUploader section{border-radius:13px!important}
+[data-testid="stFileUploader"]{background:#faf9ff;border:1.5px dashed #c9bdf6;border-radius:18px;padding:1rem}
+[data-testid="stDataFrame"]{border:1px solid #eceaf5;border-radius:15px;overflow:hidden}
+hr{border-color:#e5e2f0!important}
+[data-testid="stAlert"]{border-radius:14px}
+[data-testid="stSidebar"] [data-testid="stAlert"]{border-radius:13px}
+footer{visibility:hidden}
+@media(max-width:900px){.block-container{padding:1rem 1rem 2rem}.hero{padding:1.25rem;min-height:150px}.hero h1{font-size:2rem}.hero .orb{width:85px;height:85px;right:7%;top:32px;opacity:.8}}
+@media(max-width:600px){.hero .orb{display:none}.hero h1{font-size:1.8rem}.block-container{padding-left:.75rem;padding-right:.75rem}}
 </style>
 """, unsafe_allow_html=True)
 
@@ -256,16 +106,21 @@ def prediction_view(model, row):
         fig = px.bar(d, x="Probability", y="Gesture", orientation="h", color="Gesture",
                      color_discrete_map=COLORS, text=d["Probability"].map(lambda v:f"{v:.1%}"))
         fig.update_layout(height=300,showlegend=False,paper_bgcolor="rgba(0,0,0,0)",
-                          plot_bgcolor="rgba(0,0,0,0)",font_color="#526276",
-                          xaxis=dict(range=[0,1],tickformat=".0%",gridcolor="#d8dee6"),
+                          plot_bgcolor="rgba(0,0,0,0)",font_color="#343858",
+                          xaxis=dict(range=[0,1],tickformat=".0%",gridcolor="#eceaf5"),
                           yaxis=dict(title="",gridcolor="rgba(0,0,0,0)"))
         fig.update_traces(textposition="outside")
         st.plotly_chart(fig,use_container_width=True)
     return pred, name
 
 st.markdown("""
-<div class="hero"><div class="eyebrow">BIOSIGNAL INTELLIGENCE · MACHINE LEARNING</div>
-<h1>🧠 NEUROMOTION</h1><p>Decoding human hand intent through eight-channel EMG feature patterns.</p></div>
+<div class="hero">
+  <div class="eyebrow">NEUROTECHNOLOGY · BIOSIGNAL INTELLIGENCE</div>
+  <h1>NEUROMOTION<span style="color:#70e6f5">.</span></h1>
+  <p>Decoding human hand intent through intelligent analysis of eight-channel EMG patterns.</p>
+  <span class="hero-tag">✦ EMG GESTURE RECOGNITION &nbsp; / &nbsp; EXTRA TREES AI</span>
+  <div class="orb"></div>
+</div>
 """,unsafe_allow_html=True)
 
 if not MODEL.exists():
@@ -282,11 +137,11 @@ demo = pd.read_csv(DEMO) if DEMO.exists() else None
 
 with st.sidebar:
     st.markdown("## ◈ NEUROMOTION")
-    st.caption("EMG gesture intelligence")
+    st.caption("EMG GESTURE INTELLIGENCE")
     page = st.radio("NAVIGATION",["Overview","Gesture replay","Upload & predict","Model insights"])
     st.markdown("---")
-    st.success("Extra Trees pipeline loaded")
-    st.caption("32 inputs · 6 gesture classes")
+    st.success("AI MODEL ONLINE")
+    st.caption("32 INPUTS  ·  6 GESTURE CLASSES")
 
 a,b,c,d = st.columns(4)
 with a: metric("Model","Extra Trees","Trained pipeline")
@@ -344,7 +199,7 @@ elif page == "Gesture replay":
         long=pd.DataFrame(prof).melt(id_vars="Channel",var_name="Feature",value_name="Value")
         fig=px.line(long,x="Channel",y="Value",color="Feature",markers=True)
         fig.update_layout(height=330,paper_bgcolor="rgba(0,0,0,0)",plot_bgcolor="rgba(0,0,0,0)",
-                          font_color="#526276",xaxis=dict(gridcolor="#d8dee6"),yaxis=dict(gridcolor="#d8dee6"))
+                          font_color="#343858",xaxis=dict(gridcolor="#eceaf5"),yaxis=dict(gridcolor="#eceaf5"))
         st.plotly_chart(fig,use_container_width=True)
         st.caption("This shows extracted feature values, not raw EMG voltage waveforms.")
 
@@ -373,7 +228,7 @@ elif page == "Upload & predict":
                     counts=result["predicted_gesture_name"].value_counts().rename_axis("Gesture").reset_index(name="Windows")
                     fig=px.bar(counts,x="Gesture",y="Windows",color="Gesture",color_discrete_map=COLORS)
                     fig.update_layout(height=320,showlegend=False,paper_bgcolor="rgba(0,0,0,0)",
-                                      plot_bgcolor="rgba(0,0,0,0)",font_color="#526276")
+                                      plot_bgcolor="rgba(0,0,0,0)",font_color="#343858")
                     st.plotly_chart(fig,use_container_width=True)
                     if "actual_gesture" in result.columns:
                         score=accuracy_score(result["actual_gesture"].astype(int),result["predicted_gesture"].astype(int))
