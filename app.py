@@ -124,7 +124,13 @@ div[role="radiogroup"]>label:has(input:checked) p{color:var(--indigo)!important;
 box-shadow:8px 8px 16px var(--lo),-8px -8px 16px var(--hi)}
 [data-testid="stFileUploaderDropzone"]{background:var(--base);border:0;border-radius:22px;
 box-shadow:inset 6px 6px 12px var(--lo),inset -6px -6px 12px var(--hi)}
-[data-testid="stAlert"]{border-radius:18px;border:0;box-shadow:6px 6px 12px var(--lo),-6px -6px 12px var(--hi)}
+[data-testid="stAlert"]{border-radius:18px;border:0;background:var(--base)!important;
+box-shadow:6px 6px 12px var(--lo),-6px -6px 12px var(--hi)}
+[data-testid="stAlert"] *{color:var(--ink)!important}
+[data-testid="stAlert"]:has([data-testid="stAlertContentError"]){border-left:6px solid var(--rose)}
+[data-testid="stAlert"]:has([data-testid="stAlertContentWarning"]){border-left:6px solid var(--amber)}
+[data-testid="stAlert"]:has([data-testid="stAlertContentSuccess"]){border-left:6px solid var(--mint)}
+[data-testid="stAlert"]:has([data-testid="stAlertContentInfo"]){border-left:6px solid var(--indigo)}
 [data-testid="stDataFrame"]{border-radius:18px;overflow:hidden;box-shadow:6px 6px 12px var(--lo),-6px -6px 12px var(--hi)}
 hr{border-color:transparent!important;height:2px;background:linear-gradient(90deg,transparent,var(--lo),transparent)!important}
 @media (max-width:760px){.hero{flex-direction:column;align-items:flex-start}.orb{display:none}.pred{flex-wrap:wrap}}
