@@ -17,30 +17,219 @@ GESTURES = {
     4: "Wrist extension", 5: "Radial deviation", 6: "Ulnar deviation"
 }
 COLORS = {
-    "Hand at rest": "#94a3b8", "Hand clenched in a fist": "#a78bfa",
-    "Wrist flexion": "#22d3ee", "Wrist extension": "#38bdf8",
-    "Radial deviation": "#fbbf24", "Ulnar deviation": "#fb7185"
+    "Hand at rest": "#8295a8",
+    "Hand clenched in a fist": "#9387c8",
+    "Wrist flexion": "#55a9a1",
+    "Wrist extension": "#729dc9",
+    "Radial deviation": "#d7a65e",
+    "Ulnar deviation": "#d88980"
 }
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
-.stApp{background:radial-gradient(ellipse at 10% 0%,#14253b 0%,#080d18 50%);color:#edf4ff}
-html,body,[class*="css"]{font-family:Manrope,sans-serif}
-.block-container{padding-top:2rem;max-width:1450px}
-[data-testid="stSidebar"]{background:#0b1322;border-right:1px solid #24334a}
-.hero{padding:1.5rem;border:1px solid #263b55;border-radius:22px;background:linear-gradient(120deg,#142c44,#0f192c);margin-bottom:1.2rem}
-.eyebrow{color:#5eead4;letter-spacing:.18em;font-size:.72rem;font-weight:800}
-.hero h1{font-size:2.5rem;margin:.25rem 0;color:#f4f8ff}
-.hero p,.muted{color:#aabbd0}
-.metric{background:linear-gradient(145deg,#142238,#101827);border:1px solid #263a54;border-radius:16px;padding:1rem;min-height:100px}
-.metric small{color:#9fb0c8;text-transform:uppercase;letter-spacing:.08em}
-.metric h2{color:#f4f8ff;margin:.3rem 0;font-size:1.7rem}
-.pred{border:1px solid #28665f;background:linear-gradient(120deg,#123b3b,#102638);border-radius:18px;padding:1.2rem}
-.pred small{color:#83e9d7;letter-spacing:.13em;text-transform:uppercase}
-.pred h2{color:#f0fffc;margin:.3rem 0}
-.notice{border:1px solid #66552b;background:#2a2416;border-radius:12px;padding:.9rem;color:#f5dca0}
-.stButton>button{border-radius:10px;border:1px solid #356a73;background:#12343b;color:#dffff9;font-weight:700}
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --nm-bg: #e9edf2;
+  --nm-surface: #e9edf2;
+  --nm-ink: #263449;
+  --nm-muted: #718096;
+  --nm-teal: #368f88;
+  --nm-teal-dark: #28766f;
+  --nm-lavender: #8b83bd;
+  --nm-coral: #d98e83;
+  --nm-shadow-dark: #c7cdd5;
+  --nm-shadow-light: #ffffff;
+}
+
+html, body, [class*="css"] {
+  font-family: 'DM Sans', 'Manrope', sans-serif;
+  color: var(--nm-ink);
+}
+.stApp {
+  background: var(--nm-bg);
+  color: var(--nm-ink);
+}
+.block-container {
+  max-width: 1460px;
+  padding-top: 2.1rem;
+  padding-bottom: 3rem;
+}
+[data-testid="stHeader"] {
+  background: rgba(233,237,242,.86);
+}
+[data-testid="stSidebar"] {
+  background: var(--nm-bg);
+  border-right: 0;
+  box-shadow: 7px 0 18px rgba(190,198,208,.28);
+}
+[data-testid="stSidebar"] > div:first-child {
+  padding-top: 1.5rem;
+}
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h2 {
+  color: var(--nm-ink);
+  letter-spacing: .04em;
+}
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {
+  color: var(--nm-muted);
+}
+[data-testid="stRadio"] > div {
+  gap: .45rem;
+}
+[data-testid="stRadio"] label {
+  background: var(--nm-surface);
+  border-radius: 14px;
+  padding: .55rem .75rem;
+  box-shadow: 4px 4px 9px var(--nm-shadow-dark), -4px -4px 9px var(--nm-shadow-light);
+  border: 1px solid rgba(255,255,255,.45);
+}
+[data-testid="stRadio"] label:has(input:checked) {
+  box-shadow: inset 3px 3px 7px var(--nm-shadow-dark), inset -3px -3px 7px var(--nm-shadow-light);
+  color: var(--nm-teal-dark);
+  font-weight: 700;
+}
+.hero {
+  padding: 1.8rem 2rem;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #edf1f5, #e4e9ef);
+  box-shadow: 10px 10px 24px var(--nm-shadow-dark), -10px -10px 24px var(--nm-shadow-light);
+  border: 1px solid rgba(255,255,255,.7);
+  margin-bottom: 1.5rem;
+}
+.eyebrow {
+  color: var(--nm-teal-dark);
+  letter-spacing: .19em;
+  font-size: .72rem;
+  font-weight: 800;
+}
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin: .35rem 0;
+  color: #253449;
+  font-weight: 800;
+  letter-spacing: -.045em;
+}
+.hero p, .muted {
+  color: var(--nm-muted);
+}
+.metric {
+  background: var(--nm-surface);
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 22px;
+  padding: 1.15rem 1.2rem;
+  min-height: 116px;
+  box-shadow: 7px 7px 16px var(--nm-shadow-dark), -7px -7px 16px var(--nm-shadow-light);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.metric:hover {
+  transform: translateY(-2px);
+  box-shadow: 9px 9px 19px var(--nm-shadow-dark), -9px -9px 19px var(--nm-shadow-light);
+}
+.metric small {
+  color: var(--nm-muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-size: .68rem;
+  font-weight: 800;
+}
+.metric h2 {
+  color: var(--nm-teal-dark);
+  margin: .35rem 0 .2rem;
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+.pred {
+  border: 1px solid rgba(255,255,255,.75);
+  background: linear-gradient(135deg, #e3f2ef, #e9edf2);
+  border-radius: 24px;
+  padding: 1.35rem 1.5rem;
+  box-shadow: inset 4px 4px 9px #cbd8d5, inset -4px -4px 9px #ffffff;
+}
+.pred small {
+  color: var(--nm-teal-dark);
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  font-size: .7rem;
+  font-weight: 800;
+}
+.pred h2 {
+  color: #286d67;
+  margin: .35rem 0 0;
+  font-size: 1.55rem;
+}
+.notice {
+  border: 1px solid rgba(255,255,255,.8);
+  background: #f4eee5;
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+  color: #8a6844;
+  box-shadow: inset 3px 3px 7px #ded8d0, inset -3px -3px 7px #ffffff;
+}
+.stButton > button, .stDownloadButton > button {
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.8);
+  background: var(--nm-surface);
+  color: var(--nm-teal-dark);
+  font-weight: 800;
+  padding: .55rem 1.1rem;
+  box-shadow: 5px 5px 10px var(--nm-shadow-dark), -5px -5px 10px var(--nm-shadow-light);
+  transition: all .15s ease;
+}
+.stButton > button:hover, .stDownloadButton > button:hover {
+  color: #205e59;
+  border-color: rgba(54,143,136,.35);
+  box-shadow: inset 3px 3px 7px var(--nm-shadow-dark), inset -3px -3px 7px var(--nm-shadow-light);
+}
+.stButton > button:focus, .stDownloadButton > button:focus {
+  box-shadow: inset 3px 3px 7px var(--nm-shadow-dark), inset -3px -3px 7px var(--nm-shadow-light);
+  outline: 2px solid rgba(54,143,136,.25);
+}
+.stTextInput input, .stNumberInput input, .stSelectbox [data-baseweb="select"],
+.stFileUploader section {
+  border-radius: 14px !important;
+  background: var(--nm-surface) !important;
+  box-shadow: inset 3px 3px 7px var(--nm-shadow-dark), inset -3px -3px 7px var(--nm-shadow-light) !important;
+}
+.stFileUploader section {
+  border: 1px dashed #aeb9c6 !important;
+  padding: 1.1rem !important;
+}
+[data-testid="stDataFrame"], [data-testid="stTable"] {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 5px 5px 12px var(--nm-shadow-dark), -5px -5px 12px var(--nm-shadow-light);
+}
+[data-testid="stMetric"] {
+  background: var(--nm-surface);
+  border-radius: 18px;
+  padding: .9rem 1rem;
+  box-shadow: 5px 5px 10px var(--nm-shadow-dark), -5px -5px 10px var(--nm-shadow-light);
+}
+[data-testid="stMetric"] label {
+  color: var(--nm-muted) !important;
+}
+[data-testid="stMetric"] [data-testid="stMetricValue"] {
+  color: var(--nm-teal-dark);
+}
+h1, h2, h3, h4 {
+  color: #2b3b50;
+  letter-spacing: -.025em;
+}
+p, li, .stMarkdown {
+  color: #4e5d70;
+}
+hr {
+  border-color: #d3d9e1;
+}
+[data-testid="stAlert"] {
+  border-radius: 15px;
+}
+footer { visibility: hidden; }
+@media (max-width: 800px) {
+  .block-container { padding: 1.1rem 1rem 2rem; }
+  .hero { padding: 1.3rem; border-radius: 22px; }
+  .hero h1 { font-size: 2rem; }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -67,8 +256,8 @@ def prediction_view(model, row):
         fig = px.bar(d, x="Probability", y="Gesture", orientation="h", color="Gesture",
                      color_discrete_map=COLORS, text=d["Probability"].map(lambda v:f"{v:.1%}"))
         fig.update_layout(height=300,showlegend=False,paper_bgcolor="rgba(0,0,0,0)",
-                          plot_bgcolor="rgba(0,0,0,0)",font_color="#dce8f7",
-                          xaxis=dict(range=[0,1],tickformat=".0%",gridcolor="#26364c"),
+                          plot_bgcolor="rgba(0,0,0,0)",font_color="#526276",
+                          xaxis=dict(range=[0,1],tickformat=".0%",gridcolor="#d8dee6"),
                           yaxis=dict(title="",gridcolor="rgba(0,0,0,0)"))
         fig.update_traces(textposition="outside")
         st.plotly_chart(fig,use_container_width=True)
@@ -155,7 +344,7 @@ elif page == "Gesture replay":
         long=pd.DataFrame(prof).melt(id_vars="Channel",var_name="Feature",value_name="Value")
         fig=px.line(long,x="Channel",y="Value",color="Feature",markers=True)
         fig.update_layout(height=330,paper_bgcolor="rgba(0,0,0,0)",plot_bgcolor="rgba(0,0,0,0)",
-                          font_color="#dce8f7",xaxis=dict(gridcolor="#26364c"),yaxis=dict(gridcolor="#26364c"))
+                          font_color="#526276",xaxis=dict(gridcolor="#d8dee6"),yaxis=dict(gridcolor="#d8dee6"))
         st.plotly_chart(fig,use_container_width=True)
         st.caption("This shows extracted feature values, not raw EMG voltage waveforms.")
 
@@ -184,7 +373,7 @@ elif page == "Upload & predict":
                     counts=result["predicted_gesture_name"].value_counts().rename_axis("Gesture").reset_index(name="Windows")
                     fig=px.bar(counts,x="Gesture",y="Windows",color="Gesture",color_discrete_map=COLORS)
                     fig.update_layout(height=320,showlegend=False,paper_bgcolor="rgba(0,0,0,0)",
-                                      plot_bgcolor="rgba(0,0,0,0)",font_color="#dce8f7")
+                                      plot_bgcolor="rgba(0,0,0,0)",font_color="#526276")
                     st.plotly_chart(fig,use_container_width=True)
                     if "actual_gesture" in result.columns:
                         score=accuracy_score(result["actual_gesture"].astype(int),result["predicted_gesture"].astype(int))
